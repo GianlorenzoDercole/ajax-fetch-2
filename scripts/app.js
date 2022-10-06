@@ -41,12 +41,24 @@
 const peopleUrl = 'http://randomuser.me/api/?results=10'
 
 document.addEventListener('DOMContentLoaded', () => {
+    const peopleList = document.querySelector('#people-list')
+
     fetch(peopleUrl)
 
         .then(responseData => responseData.json())
 
         .then(jsonData => {
-            console.log(jsonData)
+            // console.log(jsonData)
+
+            jsonData.results.forEach(result => {
+                console.log(result.name)
+                const fullName = `${result.name.title} ${result.name.first} ${result.name.last}`
+                console.log(fullName)
+
+                const listElement = document.createElement('li')
+                listElement.innerText = fullName
+                peopleList.appendChild(listElement)
+            })
         })
         .catch(err => {
             console.error('no')
